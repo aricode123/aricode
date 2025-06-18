@@ -10,28 +10,31 @@
       background-color: #ffffff;
       touch-action: manipulation;
     }
+
     .ink {
       position: absolute;
       width: 18vw;
       max-width: 140px;
       min-width: 70px;
       transition: all 0.5s ease;
-      animation: float 12s infinite ease-in-out;
-    }
-    @keyframes float {
-      0%   { transform: translate(0, 0) rotate(0deg); }
-      25%  { transform: translate(-20px, 15px) rotate(3deg); }
-      50%  { transform: translate(15px, -25px) rotate(-3deg); }
-      75%  { transform: translate(-10px, 10px) rotate(2deg); }
-      100% { transform: translate(0, 0) rotate(0deg); }
+      animation: float 16s infinite ease-in-out;
     }
 
-    /* 모바일일 때 이미지 크기 키우기 */
+    @keyframes float {
+      0%   { transform: translate(0px, 0px) rotate(0deg); }
+      20%  { transform: translate(-80px, 60px) rotate(6deg); }
+      40%  { transform: translate(100px, -90px) rotate(-6deg); }
+      60%  { transform: translate(-120px, 80px) rotate(4deg); }
+      80%  { transform: translate(90px, -50px) rotate(-4deg); }
+      100% { transform: translate(0px, 0px) rotate(0deg); }
+    }
+
+    /* 모바일일 때 이미지 훨씬 키우기 (약 3배) */
     @media screen and (max-width: 768px) {
       .ink {
-        width: 28vw;
-        max-width: 160px;
-        min-width: 80px;
+        width: 54vw;
+        max-width: 300px;
+        min-width: 150px;
       }
     }
   </style>
@@ -55,8 +58,10 @@
     const img = document.createElement("img");
     img.src = src;
     img.className = "ink";
-    img.style.top = `${Math.random() * 80 + 5}%`;
-    img.style.left = `${Math.random() * 90 + 5}%`;
+
+    // top, left 값도 더 넓은 범위로 설정 (전체화면)
+    img.style.top = `${Math.random() * 90}%`;
+    img.style.left = `${Math.random() * 90}%`;
     img.style.animationDelay = `${Math.random() * 5}s`;
     img.dataset.index = i;
     container.appendChild(img);
