@@ -7,21 +7,32 @@
     body {
       margin: 0;
       overflow: hidden;
-      background-color: #fff;
+      background-color: #ffffff;
       touch-action: manipulation;
     }
     .ink {
       position: absolute;
-      width: 18vw; /* 화면 너비 기준 비율 */
+      width: 18vw;
       max-width: 140px;
       min-width: 70px;
       transition: all 0.5s ease;
-      animation: float 10s infinite linear;
+      animation: float 12s infinite ease-in-out;
     }
     @keyframes float {
-      0% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(5deg); }
-      100% { transform: translateY(0px) rotate(-5deg); }
+      0%   { transform: translate(0, 0) rotate(0deg); }
+      25%  { transform: translate(-20px, 15px) rotate(3deg); }
+      50%  { transform: translate(15px, -25px) rotate(-3deg); }
+      75%  { transform: translate(-10px, 10px) rotate(2deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* 모바일일 때 이미지 크기 키우기 */
+    @media screen and (max-width: 768px) {
+      .ink {
+        width: 28vw;
+        max-width: 160px;
+        min-width: 80px;
+      }
     }
   </style>
 </head>
@@ -40,7 +51,6 @@
 
   let mutated = false;
 
-  // 떠다니는 먹귀 만들기
   type1.forEach((src, i) => {
     const img = document.createElement("img");
     img.src = src;
@@ -52,7 +62,6 @@
     container.appendChild(img);
   });
 
-  // 터치 또는 클릭 시 이미지 변이
   function mutateImages() {
     if (mutated) return;
     mutated = true;
