@@ -2,43 +2,63 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>아리의 팝업 아트</title>
+  <title>디지털 업業귀</title>
   <style>
     body {
-      background-color: #111;
       margin: 0;
-      padding: 0;
-      color: white;
-      text-align: center;
-      font-family: 'Helvetica', sans-serif;
+      overflow: hidden;
+      background-color: #111;
     }
-    .popup {
+    .ink {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: fadeIn 2s ease-in-out;
+      width: 80px;
+      transition: all 0.5s ease;
+      animation: float 10s infinite linear;
     }
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translate(-50%, -60%); }
-      100% { opacity: 1; transform: translate(-50%, -50%); }
-    }
-    img {
-      max-width: 90%;
-      height: auto;
-      border: 4px solid white;
-    }
-    .caption {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      color: #ccc;
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+      100% { transform: translateY(0px) rotate(-5deg); }
     }
   </style>
 </head>
-<body>
-  <div class="popup">
-    <img src="https://via.placeholder.com/400x300.png?text=아리의+그림" alt="popup image">
-    <div class="caption">잠들어버린 링구의 콧바람</div>
-  </div>
+<body ontouchstart="mutateImages()" onclick="mutateImages()">
+
+<script>
+  const container = document.body;
+  const type1 = [
+    "ink_type1_1.png", "ink_type1_2.png", "ink_type1_3.png",
+    "ink_type1_4.png", "ink_type1_5.png", "ink_type1_6.png"
+  ];
+  const type2 = [
+    "ink_type2_1.png", "ink_type2_2.png", "ink_type2_3.png",
+    "ink_type2_4.png", "ink_type2_5.png", "ink_type2_6.png"
+  ];
+
+  let mutated = false;
+
+  // Create floating ink blots
+  type1.forEach((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "ink";
+    img.style.top = `${Math.random() * 80 + 10}%`;
+    img.style.left = `${Math.random() * 90 + 5}%`;
+    img.style.animationDelay = `${Math.random() * 5}s`;
+    img.dataset.index = i;
+    container.appendChild(img);
+  });
+
+  function mutateImages() {
+    if (mutated) return;
+    mutated = true;
+
+    const imgs = document.querySelectorAll(".ink");
+    imgs.forEach(img => {
+      const idx = img.dataset.index;
+      img.src = type2[idx];
+    });
+  }
+</script>
 </body>
 </html>
